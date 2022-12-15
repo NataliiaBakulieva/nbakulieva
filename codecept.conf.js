@@ -19,7 +19,7 @@ exports.config = {
       show: true,
       browser: 'chromium',
       waitForNavigation: 'networkidle',
-      waitForTimeout: 50000,
+      waitForTimeout: 5000,
     }
   },
   include: {

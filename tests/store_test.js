@@ -8,11 +8,11 @@ let registrationUser = {
 
 Feature('store');
 
-Scenario('test something',  ({ I , homePage, registerPage}) => {
-I.openStore();
-homePage.openRegistrationPage();
-registerPage.verifyRegisretAccountText();
-registrationUser.email = Date.now() + '@test.com';
-registerPage.fillRegistrationDetail(registrationUser);
-registerPage.verifyAccountCreatedText();
+Scenario('test something', ({ I, homePage, registerPage }) => {
+   I.openStore();
+   homePage.openRegistrationPage();
+   registerPage.verifyRegisretAccountText();
+   registrationUser.email = Date.now() + '@test.com';
+   registerPage.fillRegistrationDetail(registrationUser);
+   registerPage.verifyAccountCreatedText();
 });
