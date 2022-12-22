@@ -1,4 +1,4 @@
-const { continueBatton } = require("./register");
+const steps_file = require("../steps_file");
 
 const { I } = inject();
 
@@ -43,22 +43,24 @@ module.exports = {
     },
 
     async getTotalPrice() {
-        return await I.grabTextFrom(this.totalPrice);
+        let prise = await I.grabTextFrom(this.totalPrice);
+        console.log(I.cleanupPrice(price))
+        return I.cleanupPrice(price);
     },
 
     async getFlatShippingRatePrice() {
-        return await I.grabTextFrom(this.flatShippingRatePrice);
+        let prise = await I.grabTextFrom(this.flatShippingRatePrice);
+        I.cleanupPrice(price)
+        return I.cleanupPrice(price);
     },
+
     async getQuantity() {
-        return await I.grabTextFrom(this.quantity);
+        let quantity = await I.grabTextFrom(this.quantity);
+        return +quantity;
     },
 
     purchaseCompletion() {
         I.click(this.confirmOrderButton);
         I.see('Your order has been placed!');
     },
-
-
-
-
 }

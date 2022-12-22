@@ -28,7 +28,10 @@ module.exports = function () {
       this.fillField(emailField, user.email);
       this.fillField(passwordField, user.password);
       this.click(submitButton);
-    }
-
+    },
+    cleanupPrice(price) {
+      //I did not understand how to correctly derive the price using the method .replaceAll()
+      return +(price.match(/\d+\.\d+/));
+    },
   });
 }

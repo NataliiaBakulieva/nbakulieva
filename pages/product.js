@@ -1,3 +1,5 @@
+const steps_file = require("../steps_file");
+
 const { I } = inject();
 
 module.exports = {
@@ -21,12 +23,15 @@ module.exports = {
   },
 
   async getProductPrice() {
-    return await I.grabTextFrom(this.priceText);
+    let price = await I.grabTextFrom(this.priceText);
+    return I.cleanupPrice(price);
   },
-  async getPricePerColor(){
-     return await I.grabTextFrom(this.pricePerColor);
-   },
-   async getPricePerSize(){
-     return await I.grabTextFrom(this.pricePerSize);
-   },
+  async getPricePerColor() {
+    let price = await I.grabTextFrom(this.pricePerColor);
+    return I.cleanupPrice(price);
+  },
+  async getPricePerSize() {
+    let price = await I.grabTextFrom(this.pricePerSize);
+    return I.cleanupPrice(price);
+  },
 }
