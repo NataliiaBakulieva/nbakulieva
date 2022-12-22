@@ -20,12 +20,19 @@ exports.config = {
       browser: 'chromium',
       waitForNavigation: 'networkidle',
       waitForTimeout: 5000,
-    }
+    },
+    "ChaiWrapper": {
+      "require": "codeceptjs-chai"
+    },
+
   },
   include: {
     "I": "./steps_file.js",
     "homePage": "./pages/home.js",
-    "registerPage": "./pages/register.js"
+    "registerPage": "./pages/register.js",
+    "productPage": "./pages/product.js",
+    "checkoutPage": "./pages/checkout.js",
+    "orderHistoryPage": "./pages/orderHistory.js"
   },
   name: 'nbakulieva'
 }
