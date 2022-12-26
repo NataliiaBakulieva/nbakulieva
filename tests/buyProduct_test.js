@@ -14,28 +14,43 @@ let newAdress = {
    postCode: '77777',
 };
 
+const LinksGetter = require('../helpers/productLinksGetter.js');
+let productLinksFromTxt = LinksGetter.getLinksFromTxt();
+console.log(productLinksFromTxt);
+
 Feature('buy');
 
-Scenario('buy product', async ({ I, productPage, checkoutPage }) => {
+Before(({ I }) => {
    I.login(loginUser);
    I.see('My Affiliate Account');
-   I.openProductPage();
-   productPage.selectProductDetails();
+ });
+
+Data(productLinksFromTxt).Scenario('buy product', async ({ I, productPage, checkoutPage, current }) => {
+   I.amOnPage(current.link);
+   I.click({ css: 'i.linearicons-cart' });
+   let result = await tryTo(() => I.seeElement({ xpath: '//p[text()="Your shopping cart is empty!"]' }));
+   console.log(result);
+   
+   //productPage.selectProductDetails();
 
    let price = await productPage.getProductPrice();
-   let colourPrice = await productPage.getPricePerColor();
-   let sizePrice = await productPage.getPricePerSize();
+   console.log(price);
+   //let colourPrice = await productPage.getPricePerColor();
+  // console.log(colourPrice);
+   //let sizePrice = await productPage.getPricePerSize();
+   //console.log("ЦІНА за колір- " + productPage.getPricePerColor());
+   
 
-   I.openCheckoutPage();
+ /*  I.openCheckoutPage();
    checkoutPage.fillFieldsCheckout(newAdress);
 
-   let totalPrice = await checkoutPage.getTotalPrice();
-   let shippingRatePrice = await checkoutPage.getFlatShippingRatePrice();
-   let quantity = await checkoutPage.getQuantity();
+   let totalPrice = await checkoutPage.getTotalPrice();*/
+   // let shippingRatePrice = await checkoutPage.getFlatShippingRatePrice();
+   //let quantity = await checkoutPage.getQuantity();
 
-   I.assertEqual((price + colourPrice + sizePrice) * quantity + shippingRatePrice, totalPrice, "Prices are not in match");
-   checkoutPage.purchaseCompletion();
+   // I.assertEqual((price + colourPrice + sizePrice) * quantity + shippingRatePrice, totalPrice, "Prices are not in match");
+  /* checkoutPage.purchaseCompletion();
 
    I.openOrderHistoryPage();
-   console.log('Last order ID ' + await orderHistory.cleanupOrderID());
+   console.log('Last order ID ' + await orderHistory.getLastOrderID());*/
 }).tag('buy');

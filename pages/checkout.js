@@ -43,20 +43,19 @@ module.exports = {
     },
 
     async getTotalPrice() {
-        let prise = await I.grabTextFrom(this.totalPrice);
-        console.log(I.cleanupPrice(price))
-        return I.cleanupPrice(price);
+        let price = await I.grabTextFrom(this.totalPrice);
+        console.log(await I.parsePrice(price));
+        return await I.parsePrice(price);
     },
 
     async getFlatShippingRatePrice() {
-        let prise = await I.grabTextFrom(this.flatShippingRatePrice);
-        I.cleanupPrice(price)
-        return I.cleanupPrice(price);
+        let price = await I.parsePrice(this.flatShippingRatePrice);
+        return await I.parsePrice(price);
     },
 
     async getQuantity() {
         let quantity = await I.grabTextFrom(this.quantity);
-        return +quantity;
+        return await +quantity;
     },
 
     purchaseCompletion() {
