@@ -4,7 +4,7 @@ const { I } = inject();
 
 module.exports = {
 
-    step2continieButton: { xpath: '//input[@id="button-payment-address"]' },
+    step2continieButton: { css: 'div input[id="button-payment-address"]' }, //xpath: '//input[@id="button-payment-address"]'
     useNewAddressButton: { xpath: '//label[@for="shipping_addressnew3"]' },
     firstNameField: { xpath: '(//div[@class="col-sm-10"]//input[@name="firstname"])[2]' },
     lastNameField: { xpath: '//input[@id="input-shipping-lastname"]' },
@@ -44,12 +44,11 @@ module.exports = {
 
     async getTotalPrice() {
         let price = await I.grabTextFrom(this.totalPrice);
-        console.log(await I.parsePrice(price));
         return await I.parsePrice(price);
     },
 
     async getFlatShippingRatePrice() {
-        let price = await I.parsePrice(this.flatShippingRatePrice);
+        let price = await I.grabTextFrom(this.flatShippingRatePrice);
         return await I.parsePrice(price);
     },
 

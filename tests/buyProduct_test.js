@@ -23,34 +23,35 @@ Feature('buy');
 Before(({ I }) => {
    I.login(loginUser);
    I.see('My Affiliate Account');
- });
+});
 
 Data(productLinksFromTxt).Scenario('buy product', async ({ I, productPage, checkoutPage, current }) => {
    I.amOnPage(current.link);
    I.click({ css: 'i.linearicons-cart' });
    let result = await tryTo(() => I.seeElement({ xpath: '//p[text()="Your shopping cart is empty!"]' }));
    console.log(result);
-   
-   //productPage.selectProductDetails();
 
    let price = await productPage.getProductPrice();
    console.log(price);
-   //let colourPrice = await productPage.getPricePerColor();
-  // console.log(colourPrice);
-   //let sizePrice = await productPage.getPricePerSize();
-   //console.log("ЦІНА за колір- " + productPage.getPricePerColor());
-   
 
- /*  I.openCheckoutPage();
+   let colourPrice = await productPage.checkingColorField();
+   console.log('ЦЕНА ЗА ЦВЕТ ' + colourPrice);
+
+   let sizePrice = await productPage.checkingSizeField();
+   console.log("ЦЕНА ЗА РАЗМЕР - " + sizePrice);
+   productPage.selectProductDetails();
+
+   I.openCheckoutPage();
    checkoutPage.fillFieldsCheckout(newAdress);
 
-   let totalPrice = await checkoutPage.getTotalPrice();*/
-   // let shippingRatePrice = await checkoutPage.getFlatShippingRatePrice();
-   //let quantity = await checkoutPage.getQuantity();
+   let totalPrice = await checkoutPage.getTotalPrice();
+   let shippingRatePrice = await checkoutPage.getFlatShippingRatePrice();
+   let quantity = await checkoutPage.getQuantity();
 
-   // I.assertEqual((price + colourPrice + sizePrice) * quantity + shippingRatePrice, totalPrice, "Prices are not in match");
-  /* checkoutPage.purchaseCompletion();
+   I.assertEqual((price + colourPrice + sizePrice) * quantity + shippingRatePrice, totalPrice, "Prices are not in match");
+   checkoutPage.purchaseCompletion();
 
    I.openOrderHistoryPage();
-   console.log('Last order ID ' + await orderHistory.getLastOrderID());*/
+   console.log('Last order ID ' + await orderHistory.getLastOrderID());
+
 }).tag('buy');
