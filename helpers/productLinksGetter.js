@@ -4,7 +4,7 @@ const JSON_FILE = './input/products.json';
 
 module.exports = {
 
-  getProductsFromJson(){
+  getProductsFromJson() {
     return JSON.parse(this.readContectFromFile(JSON_FILE));
   },
 

@@ -16,8 +16,8 @@ module.exports = {
     return await I.parsePrice(price);
   },
 
- async selectProductDetails() {
-   await I.click(this.addToCartButton);
+  async selectProductDetails() {
+    await I.click(this.addToCartButton);
   },
 
   async checkingColorField() {
@@ -28,21 +28,21 @@ module.exports = {
       I.click(this.pricePerColor);
       return colourPrice = await this.getPricePerColor();
     }
-    else {return 0};
+    else { return 0 };
   },
 
-  async checkingSizeField(){
-     let result1 = await tryTo(() => I.seeElement({ xpath: '//label[text()="Size"]' }));
-     let sizePrice;
-     if (result1) {
-       I.click(this.sizeField);
-       I.click(this.pricePerSize);
+  async checkingSizeField() {
+    let result1 = await tryTo(() => I.seeElement({ xpath: '//label[text()="Size"]' }));
+    let sizePrice;
+    if (result1) {
+      I.click(this.sizeField);
+      I.click(this.pricePerSize);
       return sizePrice = await this.getPricePerSize();
-     }
-     else {return 0};
-   },
+    }
+    else { return 0 };
+  },
 
-   async getPricePerColor() {
+  async getPricePerColor() {
     let price = await I.grabTextFrom(this.colourField);
     return await I.parsePrice(price);
   },

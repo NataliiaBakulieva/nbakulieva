@@ -26,6 +26,7 @@ module.exports = {
 
     fillFieldsCheckout(newAdress) {
         I.click(this.step2continieButton);
+        pause();
         I.click(this.useNewAddressButton);
         I.fillField(this.firstNameField, newAdress.firstName1);
         I.fillField(this.lastNameField, newAdress.lastName);

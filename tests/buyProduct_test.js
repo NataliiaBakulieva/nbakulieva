@@ -32,10 +32,10 @@ Data(productLinksFromTxt).Scenario('buy product', async ({ I, productPage, check
    console.log(result);
 
    let price = await productPage.getProductPrice();
-   console.log(price);
+   console.log('ЦЕНА ЗА ПРОДУКТА - ' + price);
 
    let colourPrice = await productPage.checkingColorField();
-   console.log('ЦЕНА ЗА ЦВЕТ ' + colourPrice);
+   console.log('ЦЕНА ЗА ЦВЕТ - ' + colourPrice);
 
    let sizePrice = await productPage.checkingSizeField();
    console.log("ЦЕНА ЗА РАЗМЕР - " + sizePrice);
