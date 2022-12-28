@@ -24,7 +24,9 @@ exports.config = {
     "ChaiWrapper": {
       "require": "codeceptjs-chai"
     },
-
+    Converter: {
+      require: './helpers/converter_helper.js',
+    },
   },
   include: {
     "I": "./steps_file.js",

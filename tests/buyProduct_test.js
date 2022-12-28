@@ -14,17 +14,32 @@ let newAdress = {
    postCode: '77777',
 };
 
+const LinksGetter = require('../helpers/productLinksGetter.js');
+let productLinksFromTxt = LinksGetter.getLinksFromTxt();
+console.log(productLinksFromTxt);
+
 Feature('buy');
 
-Scenario('buy product', async ({ I, productPage, checkoutPage }) => {
+Before(({ I }) => {
    I.login(loginUser);
    I.see('My Affiliate Account');
-   I.openProductPage();
-   productPage.selectProductDetails();
+});
+
+Data(productLinksFromTxt).Scenario('buy product', async ({ I, productPage, checkoutPage, current }) => {
+   I.amOnPage(current.link);
+   I.click({ css: 'i.linearicons-cart' });
+   let result = await tryTo(() => I.seeElement({ xpath: '//p[text()="Your shopping cart is empty!"]' }));
+   console.log(result);
 
    let price = await productPage.getProductPrice();
-   let colourPrice = await productPage.getPricePerColor();
-   let sizePrice = await productPage.getPricePerSize();
+   console.log('ЦЕНА ЗА ПРОДУКТА - ' + price);
+
+   let colourPrice = await productPage.checkingColorField();
+   console.log('ЦЕНА ЗА ЦВЕТ - ' + colourPrice);
+
+   let sizePrice = await productPage.checkingSizeField();
+   console.log("ЦЕНА ЗА РАЗМЕР - " + sizePrice);
+   productPage.selectProductDetails();
 
    I.openCheckoutPage();
    checkoutPage.fillFieldsCheckout(newAdress);
@@ -37,5 +52,6 @@ Scenario('buy product', async ({ I, productPage, checkoutPage }) => {
    checkoutPage.purchaseCompletion();
 
    I.openOrderHistoryPage();
-   console.log('Last order ID ' + await orderHistory.cleanupOrderID());
+   console.log('Last order ID ' + await orderHistory.getLastOrderID());
+
 }).tag('buy');

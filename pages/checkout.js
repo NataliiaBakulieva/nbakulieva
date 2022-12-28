@@ -4,7 +4,7 @@ const { I } = inject();
 
 module.exports = {
 
-    step2continieButton: { xpath: '//input[@id="button-payment-address"]' },
+    step2continieButton: { css: 'div input[id="button-payment-address"]' }, //xpath: '//input[@id="button-payment-address"]'
     useNewAddressButton: { xpath: '//label[@for="shipping_addressnew3"]' },
     firstNameField: { xpath: '(//div[@class="col-sm-10"]//input[@name="firstname"])[2]' },
     lastNameField: { xpath: '//input[@id="input-shipping-lastname"]' },
@@ -26,6 +26,7 @@ module.exports = {
 
     fillFieldsCheckout(newAdress) {
         I.click(this.step2continieButton);
+        pause();
         I.click(this.useNewAddressButton);
         I.fillField(this.firstNameField, newAdress.firstName1);
         I.fillField(this.lastNameField, newAdress.lastName);
@@ -43,20 +44,18 @@ module.exports = {
     },
 
     async getTotalPrice() {
-        let prise = await I.grabTextFrom(this.totalPrice);
-        console.log(I.cleanupPrice(price))
-        return I.cleanupPrice(price);
+        let price = await I.grabTextFrom(this.totalPrice);
+        return await I.parsePrice(price);
     },
 
     async getFlatShippingRatePrice() {
-        let prise = await I.grabTextFrom(this.flatShippingRatePrice);
-        I.cleanupPrice(price)
-        return I.cleanupPrice(price);
+        let price = await I.grabTextFrom(this.flatShippingRatePrice);
+        return await I.parsePrice(price);
     },
 
     async getQuantity() {
         let quantity = await I.grabTextFrom(this.quantity);
-        return +quantity;
+        return await +quantity;
     },
 
     purchaseCompletion() {

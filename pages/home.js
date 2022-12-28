@@ -8,5 +8,4 @@ module.exports = {
     I.click(this.myAccountSpoiler);
     I.click(this.registerLink);
   }
-
 }
